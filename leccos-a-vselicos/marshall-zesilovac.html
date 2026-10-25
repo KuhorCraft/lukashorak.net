@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oprava zesilovače Marshall – Lukáš Horák</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div id="container">
+
+    <header>
+        <h1>Oprava zesilovače Marshall AS509</h1>
+        <div class="subtitle">Publikováno: 12.08.2026 | Autor: Lukáš Horák | Kategorie: Elektro</div>
+    </header>
+
+    <div class="content">
+
+        <a href="../leccos-a-vselicos.html" class="back-link">&laquo; Zpět na Leccos a všelicos</a>
+
+        <!-- Úvodní psiko-bio / Shrnutí -->
+        <p class="intro-bio">
+            Jednoho dne po zapojení kytarového zesilovače se stala ona náhoda, zpoza zesilovače vylezl dosti smradlavý zápach, s vůní pálích se součástek. Následně oprava skončila na rodiném elektrotechnikovi (na mně).
+        </p>
+
+        <h2>Magický kouř</h2>
+        <p>
+            Po zapojení do sítě a zapnutí zesilovače se z něj začal linout dosti nepříjemný zápach, s vůní pálících se součástek. Teď když se na to zpětně dívám, a snažím se vymyslet proč se to stalo, tak mně napadá, že zesilovač mohla postihnout porucha kvůli přirozenému stárnutí a tepelnému opotřebení kondenzátoru, který už neudržel nápor proudového nárazu při zapnutí do sítě, případně kvůli napěťovým špičkám z nekvalitního kontaktu v zásuvce nebo rozbočce.   
+        </p>
+
+        <!-- Jednotlivý obrázek s proklikem do Lightboxu -->
+        <div style="margin: 20px 0; text-align: center;">
+            <img src="media/as509.jpg" 
+                 alt="Fotka zesilovače v již složeném stavu" 
+                 class="gallery-img" 
+                 style="max-width: 100%; height: auto;" 
+                 onclick="openLightbox(this.src, 'Fotka zesilovače v již složeném stavu')">
+        </div>
+
+        <h2>2. Diagnóza onoho zesilovače</h2>
+        <p>
+            Po odpojení a rozmontování zesilovače jsem zjistil, že se zřejmě spálil filtrační kondenzátor. To šlo dosti viditelně poznat podle vypouklé čepičky kondenzátoru. Jinak nic jiného jsem nenašel. Pro sichr jsem to multimetrem skontroloval nějaké zkraty, žádné ale jsem tam nenašel.
+        </p>
+
+        <h2>3. Výměna již zmíněného kondenzátoru</h2>
+        <p>
+            Nejprve jsem musel vyjmout plošný spoj. Nutno dodat že toto byla dosti prekerní práce. Jednak protože bylo nutné odendat z každého potenciomatru jeho čepičku, matici a podlužku. Pak byl ten plošný spoj byl dosti nepěkně uchycen k kaslíku. Také se na něm naskýtaly 2 výkonový transistory, které byly uchyceny na kus kovu, jenž byl přišroubován k kaslíku. Nutno dodat že kromě toho že by přišroubován, tak tam byla nějaká teplovodivá pasta nebo podobný blivajz.
+            <br><br> Poté jsem se vrhnul na odpajování kondenzátoru. To šlo dosti snadno. Nutno dodat že jsem vyměnil oba kondenzátory, protože pracují v symetrické dvojici pro kladnou a zápornou větev napájení, takže zachování jednoho starého a opotřebovaného kusu by vedlo k napěťové nerovnováze, nepříjemnému brumu v reproduktoru a jeho brzkému opětovnému selhání. Následně už jen jednoduché napájení nových kondenzátorů a zpětné složení zesilovače. Po zapojení do sítě a zapnutí se z něj už žádný zápach nešel, takže oprava byla úspěšná.
+        </p>
+
+
+        <!-- Mřížka fotek (Galerie) -->
+        <div class="gallery">
+            <img src="media/plosnakvkasliku.png" 
+                 class="gallery-img" 
+                 alt="Foto 1" 
+                 onclick="openLightbox(this.src, 'Plošný spoj zesilovače, který je uchycen k kaslíku')">
+            
+            <img src="media/starekondenzatory.jpeg" 
+                 class="gallery-img" 
+                 alt="Foto 2" 
+                 onclick="openLightbox(this.src, 'Staré kondenzátory, které byly vyměněny')">
+            
+            <img src="media/mazlavysvinec.jpeg" 
+                 class="gallery-img" 
+                 alt="Foto 3" 
+                 onclick="openLightbox(this.src, 'Matlavá hmota zachycený na mně a mém triku, která byla pod ohnutým kusem kovu')">
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 Lukáš Horák – Všechna práva vyhrazena.
+    </footer>
+
+</div>
+
+<!-- LIGHTBOX MODAL (Zvětšování fotek) -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close">&times;</span>
+    <img class="lightbox-content" id="lightbox-img">
+    <div id="lightbox-caption"></div>
+</div>
+
+<script>
+    function openLightbox(src, captionText) {
+        const lightbox = document.getElementById('lightbox');
+        const img = document.getElementById('lightbox-img');
+        const caption = document.getElementById('lightbox-caption');
+
+        lightbox.style.display = 'block';
+        img.src = src;
+        caption.innerText = captionText || '';
+    }
+
+    function closeLightbox() {
+        document.getElementById('lightbox').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>

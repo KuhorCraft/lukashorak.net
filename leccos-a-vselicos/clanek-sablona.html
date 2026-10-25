@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Název článku – Lukáš Horák</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div id="container">
+
+    <header>
+        <h1>Název Článku Nebo T tématu</h1>
+        <div class="subtitle">Publikováno: 2026-09-20 | Autor: Lukáš Horák | Kategorie: Elektro</div>
+    </header>
+
+    <div class="content">
+
+        <a href="../leccos-a-vselicos.html" class="back-link">&laquo; Zpět na Leccos a všelicos</a>
+
+        <!-- Úvodní piko-bio / Shrnutí -->
+        <p class="intro-bio">
+            Stručné shrnutí článku na 2-3 řádky. O čem tento text je, proč jsi ho psal a co se v něm čtenář dozví.
+        </p>
+
+        <h2>1. Úvod do problematiky</h2>
+        <p>
+            Tady začíná hlavní text článku. Můžeš normálně psát odstavce přes značku <code>&lt;p&gt;</code>.
+            Odkazy fungují klasicky přes <a href="#">odkazový tag</a>.
+        </p>
+
+        <!-- Jednotlivý obrázek s proklikem do Lightboxu -->
+        <div style="margin: 20px 0; text-align: center;">
+            <img src="../media/foto1.jpeg" 
+                 alt="Popis fotky pro nevidomé nebo vyhledače" 
+                 class="gallery-img" 
+                 style="max-width: 100%; height: auto;" 
+                 onclick="openLightbox(this.src, 'Detailní popisek fotky, který se zobrazí dole v Lightboxu')">
+            <div class="poddnadpis" style="margin-top: 5px;">Obrázek 1: Klikni na fotku pro zvětšení</div>
+        </div>
+
+        <h2>2. Podrobnější postup / Galerie</h2>
+        <p>
+            Pokud chceš v článku vytvořit mřížku více fotek vedle sebe (např. z laborování nebo výroby), stačí použít třídu <code>gallery</code> z tvého CSS:
+        </p>
+
+        <!-- Mřížka fotek (Galerie) -->
+        <div class="gallery">
+            <img src="../media/foto2.jpeg" 
+                 class="gallery-img" 
+                 alt="Foto 1" 
+                 onclick="openLightbox(this.src, 'Popis první fotky v galerii')">
+            
+            <img src="../media/foto3.jpeg" 
+                 class="gallery-img" 
+                 alt="Foto 2" 
+                 onclick="openLightbox(this.src, 'Popis druhé fotky v galerii')">
+            
+            <img src="../media/foto4.jpeg" 
+                 class="gallery-img" 
+                 alt="Foto 3" 
+                 onclick="openLightbox(this.src, 'Popis třetí fotky v galerii')">
+        </div>
+
+        <h3>Důležité body / Seznam:</h3>
+        <ul class="contact-list">
+            <li><b>První bod:</b> Důležitá věc k zapamatování.</li>
+            <li><b>Druhý bod:</b> Další poznámka pod čarou.</li>
+        </ul>
+
+        <!-- Ukázka bloku pro kód nebo technický zápis -->
+        <h2>3. Technické detaily / Kód</h2>
+        <p>Pro zápis konfigurace nebo ukázky kódu stačí pouzít značku pre:</p>
+        <pre style="background: #f0f4f8; border: 1px solid #778899; padding: 10px; font-family: 'Courier New', monospace; font-size: 12px; overflow-x: auto;">
+// Ukázkový C++/Arduino kód
+void setup() {
+    Serial.begin(9600);
+    pinMode(13, OUTPUT);
+}
+        </pre>
+
+    </div>
+
+    <footer>
+        &copy; 2026 Lukáš Horák – Všechna práva vyhrazena.
+    </footer>
+
+</div>
+
+<!-- LIGHTBOX MODAL (Zvětšování fotek) -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close">&times;</span>
+    <img class="lightbox-content" id="lightbox-img">
+    <div id="lightbox-caption"></div>
+</div>
+
+<script>
+    function openLightbox(src, captionText) {
+        const lightbox = document.getElementById('lightbox');
+        const img = document.getElementById('lightbox-img');
+        const caption = document.getElementById('lightbox-caption');
+
+        lightbox.style.display = 'block';
+        img.src = src;
+        caption.innerText = captionText || '';
+    }
+
+    function closeLightbox() {
+        document.getElementById('lightbox').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>

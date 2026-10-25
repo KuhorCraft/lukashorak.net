@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zapisování – Lukáš Horák</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div id="container">
+
+    <header>
+        <h1>Jak si zapisuji poznámky</h1>
+        <div class="subtitle">Publikováno: 19.09.2026 | Autor: Lukáš Horák | Kategorie: Škola</div>
+    </header>
+
+    <div class="content">
+
+        <a href="../leccos-a-vselicos.html" class="back-link">&laquo; Zpět na Leccos a všelicos</a>
+
+        <!-- Úvodní piko-bio / Shrnutí -->
+        <p class="intro-bio">
+            Toto psaní projednává o mém dosti unikátním systému zapisování poznámek, který je dosti přehledný, a to využívá pouze jedno obyčejné psadlo.
+        </p>
+
+        <h2>1. Touha po kvalitním zapisování</h2>
+        <p>
+            Od metody zapisování poznámek očekávám několik věcí. Primárně chci aby byly kapitoly, podkapitoly, body, podbody a další prvky jasně odlišeny, aby se v tom dalo rychle orientovat. Dále chci aby byly poznámky přehledné a aby se v nich dalo rychle vyhledávat.
+        </p>
+
+        <!-- Jednotlivý obrázek s proklikem do Lightboxu -->
+        <div style="margin: 20px 0; text-align: center;">
+            <img src="media/zapisky1.jpeg" 
+                 alt="Zápiky z biologie na gymplu" 
+                 class="gallery-img" 
+                 style="max-width: 100%; height: auto;" 
+                 onclick="openLightbox(this.src, 'Zápiky z biologie na gymplu')">
+        </div>
+
+        <h2>2. Vznik mého osobního systému zapisování</h2>
+        <p>
+            Začalo to ve druhém stupni základní školy. Přírodopis mě na základní škole Pod Marjánkou učila skvělá paní učitelka Kimáková. Na tabuli využívala systém zapisování pomocí trojúhelníků a odrážek v podobě pomlček. Nejprve napsala nadpis, pod nejž začala psát body v podobě trojúhelníků, nutno dodat že to byly vyplněné trojúhelníky. Jakmile pak došlo na to udělat podkapitolu tak přešla na odrážky v podobě pomlček. A takto to pokračovalo dál a dál. Tento systém se mi zalíbil a začal jsem ho využívat i já. Postupem času jsem si ho upravil dle svého, a tak vznikl můj osobní systém zapisování poznámek.
+        </p>
+
+        <h3>Evoluce mého zapisovacího systému</h3>
+        <ul class="contact-list">
+            <li><b>Začátek:</b> V šesté třídě jsem adoptoval systém paní učitelky Kimákové.</li>
+            <li><b>Kapitoly:</b> Na konci šestého ročníku a počátku sedmého jsem zdokonalil vyplněné trojúhelníky, ty byly rezervované pouze pro názvy kapitol. Pod nadpisem byly pouhé odrážky, jakmile došlo na kapitolu udělal jsem vyplněný trojúhelník.</li>
+            <li><b>Podkapitoly:</b> Na počátku osmé třídy jsem zavedl nový způsob zapisování podkapitol. Byly to nevyplněné trojúhelníky. Toto mi umožnilo lépe strukturovat poznámky a zvýšit jejich přehlednost.</li>
+            <li><b>Podbody:</b> Rozloučil jsem se s základkou a nastoupil na gymnázium Arabská. Přišla i nová učitelka, na gymnáziu teda paní profesorka Šebková. Hned v její první hodině, kdy nám povídala o virech, mi do hlavi vlezl nápad podbodů v bodobě symbolu =, ten dobře seděl s již existujícímy pomlčkamy -.</li>
+        </ul>
+
+        <h2>3. Aktuální stav mého zapisování</h2>
+        <p>
+            V současné době využívám svůj systém zapisování poznámek na gymnáziu Arabská. Tento systém mi umožňuje efektivně organizovat informace a rychle se v nich orientovat. Díky jasnému rozlišení kapitol, podkapitol a podbodů mohu snadno najít potřebné informace a připravit se na zkoušky či prezentace. Určitě ale velké díky paní učitelce Kimákové a jejím trojúhelníkům.
+        </p>
+        
+
+         <!-- Jednotlivý obrázek s proklikem do Lightboxu -->
+        <div style="margin: 20px 0; text-align: center;">
+            <img src="media/zapisky2.jpeg" 
+                 alt="Zápisky z gymplu" 
+                 class="gallery-img" 
+                 style="max-width: 100%; height: auto;" 
+                 onclick="openLightbox(this.src, 'Zápisky z gymplu')">
+        </div>
+
+
+    </div>
+
+    <footer>
+        &copy; 2026 Lukáš Horák – Všechna práva vyhrazena.
+    </footer>
+
+</div>
+
+<!-- LIGHTBOX MODAL (Zvětšování fotek) -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close">&times;</span>
+    <img class="lightbox-content" id="lightbox-img">
+    <div id="lightbox-caption"></div>
+</div>
+
+<script>
+    function openLightbox(src, captionText) {
+        const lightbox = document.getElementById('lightbox');
+        const img = document.getElementById('lightbox-img');
+        const caption = document.getElementById('lightbox-caption');
+
+        lightbox.style.display = 'block';
+        img.src = src;
+        caption.innerText = captionText || '';
+    }
+
+    function closeLightbox() {
+        document.getElementById('lightbox').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>

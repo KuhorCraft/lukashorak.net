@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leccos a všelicos – Lukáš Horák</title>
+    <link rel="stylesheet" href="styles1.css">
+</head>
+<body>
+
+<div id="container">
+
+    <header>
+        <h1>Leccos a všelicos</h1>
+        <div class="subtitle">Zápisky, návody, pokusy a myšlenky z mého světa.</div>
+    </header>
+
+    <div class="content">
+
+        <a href="index.html" class="back-link">&laquo; Zpět na hlavní stránku</a>
+
+        <!-- Vyhledávání a Filtrace -->
+        <div class="search-box">
+            <input type="text" id="searchInput" class="search-input" placeholder="Hledat v tématech (např. Elektro, škola, radio)..." onkeyup="filterLinks()">
+            
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="setCategory('vse', this)">[Vše]</button>
+                <button class="filter-btn" onclick="setCategory('skola', this)">#Škola</button>
+                <button class="filter-btn" onclick="setCategory('elektro', this)">#Elektro </button>
+                <button class="filter-btn" onclick="setCategory('radio', this)">#Radioamaterství</button>
+                <button class="filter-btn" onclick="setCategory('jadro', this)">#Jádro</button>
+                <button class="filter-btn" onclick="setCategory('veda', this)">#Fascinující věda</button>
+                <button class="filter-btn" onclick="setCategory('ostatni', this)">#Ostatní</button>
+            </div>
+        </div>
+
+        <!-- Seznam témat a článků -->
+        <ul class="links-list" id="linksList">
+
+            <li class="link-item" data-category="radio" data-keywords="rádio radioamaterské zkoušky ok9obe ham hamzkoušky">
+                <div class="link-title"><a href="leccos-a-vselicos/ham-zkousky.html">Jak jsem nepokazil radioamaterské zkoušky</a></div>
+                <div class="link-desc">Můj příběh zdolání radioamaterských zkoušek, procesu, kterým si musí každý radioamatér projít.</div>
+                <div class="link-meta">Kategorie: <span class="tag">Radioamaterství</span> | Přidáno: 2026</div>
+            </li>
+
+            <li class="link-item" data-category="skola" data-keywords="zápisky škola gympl poznámky studium">
+                <div class="link-title"><a href="leccos-a-vselicos/skolni-poznamky.html">Jak si zapisuji zápisky ve škole</a></div>
+                <div class="link-desc">Což se týče efektivního psaní poznámek ve škole – systém jak v tom (ne)mít chaos.</div>
+                <div class="link-meta">Kategorie: <span class="tag">Škola</span> | Přidáno: 2026</div>
+            </li>
+
+            <li class="link-item" data-category="elektro" data-keywords="oprava zesilovače marshall AS509">
+                <div class="link-title"><a href="leccos-a-vselicos/marshall-zesilovac.html">Oprava zesilovače Marshall AS509</a></div>
+                <div class="link-desc">Podrobný popis opravy zesilovače Marshall AS509.</div>
+                <div class="link-meta">Kategorie: <span class="tag">Elektro</span> | Přidáno: 2026</div>
+            </li>
+
+        </ul>
+
+        <div id="noResults" style="display: none; padding: 20px; text-align: center; color: #777;">
+            Nebylo nalezeno žádné téma odpovídající zadanému dotazu.
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; Lukáš Horák – Leccos a všelicos
+    </footer>
+
+</div>
+
+<script>
+    let currentCategory = 'vse';
+
+    function filterLinks() {
+        const searchValue = document.getElementById('searchInput').value.toLowerCase();
+        const items = document.querySelectorAll('.link-item');
+        let visibleCount = 0;
+
+        items.forEach(item => {
+            const text = item.innerText.toLowerCase();
+            const keywords = item.getAttribute('data-keywords').toLowerCase();
+            const category = item.getAttribute('data-category');
+
+            const matchesSearch = text.includes(searchValue) || keywords.includes(searchValue);
+            const matchesCategory = (currentCategory === 'vse' || category === currentCategory);
+
+            if (matchesSearch && matchesCategory) {
+                item.style.display = '';
+                visibleCount++;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    function setCategory(category, btnElement) {
+        currentCategory = category;
+        
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        btnElement.classList.add('active');
+
+        filterLinks();
+    }
+</script>
+
+</body>
+</html>
