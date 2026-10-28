@@ -3,165 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radioamatérský deník OK9OBE – Lukáš Horák</title>
-    <link rel="stylesheet" href="styles1.css">
+    <title>Můj Radio Amateur Logbook</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #38bdf8;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #1e293b;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid #334155;
+        }
+        th {
+            background-color: #0284c7;
+            color: white;
+            font-weight: 600;
+        }
+        tr:hover {
+            background-color: #334155;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #94a3b8;
+        }
+    </style>
 </head>
 <body>
-
-<div id="container">
-
-    <header>
-        <h1>OK9OBE – Radioamatérský koutek</h1>
-        <div class="subtitle">Operator: Lukáš Horák | QTH: Praha | WRL Logging System</div>
-    </header>
-
-    <div class="content">
-
-        <a href="../" class="back-link">&laquo; Zpět na hlavní stránku</a>
-
-        <p class="intro-bio">
-            Vítejte na radioamatérské podstránce staničního deníku volací značky <strong>OK9OBE</strong>. Což se týče vysílání, aktivně se věnuji práci na pásmech, laborování s anténami a zápisu spojení do systémů jako World Radio League (WRL).
-        </p>
-
-        <!-- Informace o stanici a zařízení -->
-        <h2>Staniční údaje & Rig</h2>
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 13px;">
-            <tr style="background-color: #f0f4f8; border-bottom: 1px solid #778899;">
-                <td style="padding: 6px; font-weight: bold; width: 30%;">Volací značka (Callsign):</td>
-                <td style="padding: 6px; font-family: 'Courier New', monospace; font-weight: bold; color: #003366;">OK9OBE</td>
-            </tr>
-            <tr style="border-bottom: 1px solid #e0e0e0;">
-                <td style="padding: 6px; font-weight: bold;">Lokátor (Grid Locator):</td>
-                <td style="padding: 6px; font-family: 'Courier New', monospace;">JO70WE (Praha)</td>
-            </tr>
-            <tr style="background-color: #f0f4f8; border-bottom: 1px solid #778899;">
-                <td style="padding: 6px; font-weight: bold;">Zařízení (Transceiver):</td>
-                <td style="padding: 6px;">Handheld / Mobile TRX & SDR</td>
-            </tr>
-            <tr style="border-bottom: 1px solid #e0e0e0;">
-                <td style="padding: 6px; font-weight: bold;">Antény:</td>
-                <td style="padding: 6px;">Vertikál / Drátové antény (vlastní konstrukce)</td>
-            </tr>
+    <div class="container">
+        <h1>📻 Můj QSO Logbook</h1>
+        <table id="qso-table">
+            <thead>
+                <tr>
+                    <th>Datum / Čas (UTC)</th>
+                    <th>Značka (Call)</th>
+                    <th>Pásmo</th>
+                    <th>Mód</th>
+                    <th>RST (S)</th>
+                    <th>RST (R)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="6" class="loading">Načítám spojení...</td>
+                </tr>
+            </tbody>
         </table>
-
-        <!-- Statistické panely (Geek 2005 style) -->
-        <h2>Statistika deníku (QSO Stats)</h2>
-        <div style="display: flex; gap: 10px; margin-bottom: 20px; text-align: center;">
-            <div style="flex: 1; background-color: #f0f4f8; border: 1px solid #003366; padding: 10px;">
-                <div style="font-size: 22px; font-weight: bold; font-family: 'Courier New', monospace; color: #003366;" id="statTotal">--</div>
-                <div style="font-size: 11px; color: #555;">Celkem spojení (QSOs)</div>
-            </div>
-            <div style="flex: 1; background-color: #f0f4f8; border: 1px solid #003366; padding: 10px;">
-                <div style="font-size: 22px; font-weight: bold; font-family: 'Courier New', monospace; color: #003366;" id="statCountries">--</div>
-                <div style="font-size: 11px; color: #555;">Zemí (DXCC)</div>
-            </div>
-            <div style="flex: 1; background-color: #f0f4f8; border: 1px solid #003366; padding: 10px;">
-                <div style="font-size: 22px; font-weight: bold; font-family: 'Courier New', monospace; color: #003366;" id="statBands">2m / 70cm / HF</div>
-                <div style="font-size: 11px; color: #555;">Pásma (Bands)</div>
-            </div>
-        </div>
-
-        <!-- Výpis posledních spojení (QSO Log) -->
-        <h2>Výpis posledních spojení (Live / Cached Log)</h2>
-        <p style="font-size: 12px; color: #555;">
-            Data synchronizována z World Radio League API:
-        </p>
-
-        <div style="overflow-x: auto;">
-            <table style="width: 100%; border-collapse: collapse; font-family: 'Courier New', monospace; font-size: 12px; border: 1px solid #778899;">
-                <thead>
-                    <tr style="background-color: #003366; color: #ffffff; text-align: left;">
-                        <th style="padding: 6px; border: 1px solid #002244;">Datum & Čas (UTC)</th>
-                        <th style="padding: 6px; border: 1px solid #002244;">Callsign</th>
-                        <th style="padding: 6px; border: 1px solid #002244;">Pásmo (Band)</th>
-                        <th style="padding: 6px; border: 1px solid #002244;">Mód</th>
-                        <th style="padding: 6px; border: 1px solid #002244;">RST (R/S)</th>
-                        <th style="padding: 6px; border: 1px solid #002244;">Poznámka / QTH</th>
-                    </tr>
-                </thead>
-                <tbody id="qsoTableBody">
-                    <!-- Ukázková data (Fallback / Načteno přes JS) -->
-                    <tr style="background-color: #ffffff; border-bottom: 1px solid #dddddd;">
-                        <td style="padding: 6px;">2026-10-24 14:30</td>
-                        <td style="padding: 6px; font-weight: bold; color: #0000cc;">OK1KPA</td>
-                        <td style="padding: 6px;">2m</td>
-                        <td style="padding: 6px;">FM</td>
-                        <td style="padding: 59 / 59;">59</td>
-                        <td style="padding: 6px;">Praha - převaděč</td>
-                    </tr>
-                    <tr style="background-color: #f9f9f9; border-bottom: 1px solid #dddddd;">
-                        <td style="padding: 6px;">2026-10-22 16:15</td>
-                        <td style="padding: 6px; font-weight: bold; color: #0000cc;">OE3XWB</td>
-                        <td style="padding: 6px;">70cm</td>
-                        <td style="padding: 6px;">C4FM</td>
-                        <td style="padding: 6px;">59</td>
-                        <td style="padding: 6px;">Rakousko / SOTA</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h2 style="margin-top: 30px;">Zajímavosti a QSL informace</h2>
-        <p>
-            Nutno dodat, že papírové QSL lístky zasílám rád na vyžádání. Elektronická potvrzení probíhají přes World Radio League a eQSL / LoTW.
-        </p>
-
-        <ul class="contact-list">
-            <li><strong>QSL direct / bureau:</strong> Dle dohovoru na e-mailu</li>
-            <li><strong>WRL Profile:</strong> <a href="https://worldradioleague.com" target="_blank">Profil OK9OBE na World Radio League</a></li>
-            <li><strong>Článek o zkouškách:</strong> <a href="leccos-a-vselicos/ham-zkousky.html">Jak jsem udělal radioamatérské zkoušky &raquo;</a></li>
-        </ul>
-
     </div>
 
-    <footer>
-        &copy; 2026 OK9OBE – Lukáš Horák | 73 de OK9OBE!
-    </footer>
-
-</div>
-
-<script>
-    // Skript pro načítání z qso_data.json (bezpečný způsob pro GitHub Pages)
-    async function loadQSOs() {
-        try {
-            const response = await fetch('qso_data.json');
-            if (!response.ok) return;
-            const result = await response.json();
-            
-            const qsoList = result.data || result;
-            const tbody = document.getElementById('qsoTableBody');
-            
-            if(qsoList.length > 0) {
-                tbody.innerHTML = '';
-                document.getElementById('statTotal').innerText = qsoList.length;
+    <script>
+        async function loadQSOs() {
+            try {
+                // Načte soubor qso.json, který automaticky stahuje GitHub Action z WRL
+                const response = await fetch('qso.json');
+                if (!response.ok) throw new Error('Nelze načíst data deníku.');
                 
-                // Unikátní DXCC / země
-                const dxccSet = new Set(qsoList.map(q => q.dxcc || q.country).filter(Boolean));
-                document.getElementById('statCountries').innerText = dxccSet.size || '1';
+                const data = await response.json();
+                const tbody = document.querySelector('#qso-table tbody');
+                tbody.innerHTML = '';
 
-                qsoList.slice(0, 15).forEach((qso, index) => {
-                    const row = document.createElement('tr');
-                    row.style.backgroundColor = index % 2 === 0 ? '#ffffff' : '#f9f9f9';
-                    row.style.borderBottom = '1px solid #dddddd';
+                // WRL může vracet data jako pole nebo objekt, ošetříme obě varianty
+                const qsos = Array.isArray(data) ? data : (data.result || data.qsos || []);
 
-                    row.innerHTML = `
-                        <td style="padding: 6px;">${qso.time || qso.timestamp || '-'}</td>
-                        <td style="padding: 6px; font-weight: bold; color: #0000cc;">${qso.callsign || qso.call || '-'}</td>
-                        <td style="padding: 6px;">${qso.band || '-'}</td>
-                        <td style="padding: 6px;">${qso.mode || '-'}</td>
-                        <td style="padding: 6px;">${qso.rst_sent || '59'}</td>
-                        <td style="padding: 6px;">${qso.comment || qso.notes || '-'}</td>
+                if (qsos.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="loading">Zatím žádná spojení.</td></tr>';
+                    return;
+                }
+
+                // Vykreslíme posledních např. 50 spojení
+                qsos.slice(0, 50).forEach(qso => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${qso.TIME_ON || qso.time_on || '-'}</td>
+                        <td><strong>${qso.CALL || qso.call || '-'}</strong></td>
+                        <td>${qso.BAND || qso.band || '-'}</td>
+                        <td>${qso.MODE || qso.mode || '-'}</td>
+                        <td>${qso.RST_SENT || qso.rst_sent || '-'}</td>
+                        <td>${qso.RST_RCVD || qso.rst_rcvd || '-'}</td>
                     `;
-                    tbody.appendChild(row);
+                    tbody.appendChild(tr);
                 });
+            } catch (error) {
+                console.error(error);
+                document.querySelector('#qso-table tbody').innerHTML = 
+                    '<tr><td colspan="6" class="loading" style="color: #ef4444;">Chyba při načítání dat deníku.</td></tr>';
             }
-        } catch (e) {
-            console.log("Používají se výchozí/ukázková data QSO.");
         }
-    }
 
-    loadQSOs();
-</script>
-
+        loadQSOs();
+    </script>
 </body>
 </html>

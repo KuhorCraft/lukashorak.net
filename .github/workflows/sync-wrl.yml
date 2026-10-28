@@ -1,0 +1,29 @@
+name: Sync WRL Contacts
+
+on:
+  schedule:
+    - cron: '0 */6 * * *' # Spustí se automaticky každých 6 hodin
+  workflow_dispatch: # Možnost spustit ručně v záložce Actions na GitHubu
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch QSOs from WRL
+        env:
+          WRL_API_KEY: ${{ secrets.WRL_API_KEY }}
+        run: |
+          # Stažení dat z WRL pomocí tajného klíče
+          curl -H "Authorization: Bearer $WRL_API_KEY" \
+               "https://app.worldradioleague.com/index.php/api/qso" \
+               -o qso.json
+
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add qso.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update QSO data from WRL" && git push)
