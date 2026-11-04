@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Název sekce / Téma – VLČR</title>
+    <!-- Cesta k styles.css (pokud je složka o úroveň níž, uprav cestu např. na ../styles.css) -->
+    <link rel="stylesheet" href="styles1.css">
+</head>
+<body>
+
+<div id="container">
+
+    <header>
+        <h1>Název Tématu / Sekce</h1>
+        <div class="subtitle">Iniciativa VLČR – Vzdělaný lid ČR | Odborné materiály a dokumentace</div>
+    </header>
+
+    <div class="content">
+
+        <!-- Odkaz zpět na hlavní stránku nebo rozcestník -->
+        <a href="../" class="back-link">&laquo; Zpět na hlavní stránku</a>
+
+        <!-- Úvodní bio box -->
+        <p class="intro-bio">
+            Tady bude stručné úvodní shrnutí této konkrétní sekce. Proč se tomuto tématu věnujeme, co zde čtenář najde a komu je obsah určen.
+        </p>
+
+        <!-- Vnitřní navigace v sekci (např. přepínání mezi články, materiály a logbookem) -->
+        <div class="section-nav">
+            <a href="#uvod" class="active">O projektu</a>
+            <a href="#materialy">Výukové materiály</a>
+            <a href="#odkazy">Logbook / Odkazy</a>
+        </div>
+
+        <!-- Sekce 1 -->
+        <h2 id="uvod">O této sekci</h2>
+        <p>
+            Tady můžeš rozepsat podrobnosti k danému oboru. Což se týče struktury, texty se dají krásně dělit do přehledných bloků, odstavců zarovnaných do bloku a doplňovat obrázky či tabulkami.
+        </p>
+
+        <!-- Sekce 2: Výukové materiály / tabulky (např. kmitočty) -->
+        <h2 id="materialy">Výukové materiály a přehledy</h2>
+        <p>
+            Nutno dodat, že pro technické obory (jako je radioamatérství nebo elektronika) se skvěle hodí přehledné tabulky, například pro kmitočtová pásma, přehled kanálů nebo vzorce:
+        </p>
+
+        <div style="overflow-x: auto; margin-bottom: 20px;">
+            <table style="width: 100%; border-collapse: collapse; font-family: 'Courier New', monospace; font-size: 12px; border: 1px solid #778899;">
+                <thead>
+                    <tr style="background-color: #003366; color: #ffffff; text-align: left;">
+                        <th style="padding: 6px; border: 1px solid #002244;">Pásmo</th>
+                        <th style="padding: 6px; border: 1px solid #002244;">Kmitočtový rozsah</th>
+                        <th style="padding: 6px; border: 1px solid #002244;">Určení / Poznámka</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background-color: #ffffff; border-bottom: 1px solid #dddddd;">
+                        <td style="padding: 6px; font-weight: bold;">2m</td>
+                        <td style="padding: 6px;">144 – 146 MHz</td>
+                        <td style="padding: 6px;">VHF provoz, převaděče, lokální spojení</td>
+                    </tr>
+                    <tr style="background-color: #f9f9f9; border-bottom: 1px solid #dddddd;">
+                        <td style="padding: 6px; font-weight: bold;">70cm</td>
+                        <td style="padding: 6px;">430 – 440 MHz</td>
+                        <td style="padding: 6px;">UHF provoz, digitální módy, experimenty</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Sekce 3: Užitečné odkazy a logbook -->
+        <h2 id="odkazy">Odkazy a externí systémy</h2>
+        
+        <div class="resource-box">
+            <div class="resource-title">🔗 Odkaz na staniční deník (Logbook)</div>
+            <p style="margin: 5px 0 0 0; font-size: 13px;">
+                Pokud daná sekce obsahuje externí aplikaci nebo logbook, můžeš sem umístit přímý odkaz: <a href="#" target="_blank">Otevřít živý logbook stanice &raquo;</a>
+            </p>
+        </div>
+
+        <div class="resource-box">
+            <div class="resource-title">📚 Doporučená literatura a zdroje</div>
+            <p style="margin: 5px 0 0 0; font-size: 13px;">
+                Seznam knih, skript a webových stránek, které pomohly s přípravou.
+            </p>
+        </div>
+
+        <!-- Kontaktní / patičkový odkaz -->
+        <ul class="contact-list" style="margin-top: 30px;">
+            <li><strong>Iniciativa VLČR:</strong> <a href="https://www.vzdelanylid.cz" target="_blank">www.vzdelanylid.cz</a></li>
+        </ul>
+
+    </div>
+
+    <footer>
+        &copy; 2026 Lukáš Horák – Iniciativa VLČR
+    </footer>
+
+</div>
+
+</body>
+</html>

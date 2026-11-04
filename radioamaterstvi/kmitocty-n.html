@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radioamatérská pásma - Třída N (Novice)</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+            margin: 0;
+            padding: 15px;
+            line-height: 1.5;
+        }
+
+        header {
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        h1 {
+            margin: 0 0 5px 0;
+            font-size: 22px;
+            color: #0b3d91;
+        }
+
+        p.subtitle {
+            margin: 0;
+            font-size: 13px;
+            color: #495057;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .sidebar {
+            flex: 1 1 300px;
+            max-width: 380px;
+        }
+
+        .main-content {
+            flex: 2 1 500px;
+        }
+
+        fieldset {
+            border: 1px solid #b2bec3;
+            background-color: #ffffff;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 3px;
+        }
+
+        legend {
+            font-weight: bold;
+            font-size: 14px;
+            color: #0b3d91;
+            padding: 0 5px;
+        }
+
+        .filter-box {
+            margin-bottom: 10px;
+        }
+
+        .filter-box input[type="text"], .filter-box select {
+            width: 100%;
+            padding: 6px;
+            box-sizing: border-box;
+            border: 1px solid #ced4da;
+            border-radius: 3px;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .band-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 520px;
+            overflow-y: auto;
+            border: 1px solid #dee2e6;
+            background-color: #fff;
+        }
+
+        .band-item {
+            padding: 8px 12px;
+            border-bottom: 1px solid #e9ecef;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .band-item:hover {
+            background-color: #f1f3f5;
+        }
+
+        .band-item.active {
+            background-color: #d0ebff;
+            font-weight: bold;
+            color: #1864ab;
+        }
+
+        .badge {
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-weight: normal;
+        }
+
+        .badge-p { background-color: #d3f9d8; color: #2b8a3e; border: 1px solid #b2f2bb; }
+        .badge-s { background-color: #e7f5ff; color: #1971c2; border: 1px solid #a5d8ff; }
+        .badge-nib { background-color: #fff3bf; color: #f59f00; border: 1px solid #ffec99; }
+
+        /* Detail tabulka a obsah */
+        table.detail-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+
+        table.detail-table th, table.detail-table td {
+            border: 1px solid #dee2e6;
+            padding: 6px 10px;
+            text-align: left;
+        }
+
+        table.detail-table th {
+            background-color: #f1f3f5;
+            color: #495057;
+        }
+
+        .mono {
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .note-box {
+            background-color: #e7f5ff;
+            border-left: 4px solid #1971c2;
+            padding: 10px;
+            margin-top: 15px;
+            font-size: 13px;
+        }
+
+        footer {
+            margin-top: 30px;
+            padding-top: 10px;
+            border-top: 1px solid #ced4da;
+            font-size: 12px;
+            color: #6c757d;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Radioamatérská pásma - Třída N (Novice)</h1>
+        <p class="subtitle">Přehled kmitočtového spektra a podmínek dle Vyhlášky ČTÚ č. 156/2005 Sb. (Příloha č. 1, Tabulka 2) a plánu IARU Region 1.</p>
+        <a href="index.html">&laquo; Zpět na radioamaterství</a>
+        <br><a href="../index.html">&laquo; Zpět na hlavní web</a>
+    </header>
+
+    <div class="container">
+        <!-- Levý panel - Výběr pásma -->
+        <div class="sidebar">
+            <fieldset>
+                <legend>Filtr a Vyhledávání</legend>
+                <div class="filter-box">
+                    <label for="searchInput">Hledat pásmo / kmitočet:</label>
+                    <input type="text" id="searchInput" placeholder="např. 80m, 144 MHz, 28 MHz..." oninput="updateList()">
+                </div>
+                <div class="filter-box">
+                    <label for="categorySelect">Kategorie:</label>
+                    <select id="categorySelect" onchange="updateList()">
+                        <option value="all">-- Všechna pásma --</option>
+                        <option value="kv">Krátké vlny (KV / HF)</option>
+                        <option value="vkv">Velmi krátké vlny (VKV/UKV)</option>
+                        <option value="mikro">Mikrovlnná pásma (GHz)</option>
+                    </select>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Seznam pásem (Třída N)</legend>
+                <ul id="bandList" class="band-list">
+                    <!-- Položky budou vygenerovány v JavaScriptu -->
+                </ul>
+            </fieldset>
+        </div>
+
+        <!-- Pravý panel - Detail pásma -->
+        <div class="main-content">
+            <fieldset>
+                <legend>Detail vybraného pásma</legend>
+                <div id="bandDetail">
+                    <p style="color: #6c757d; font-style: italic;">Vyberte kmitočtové pásmo ze seznamu vlevo pro zobrazení parametrů a dělení IARU.</p>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Legenda a Základní pravidla Třídy N</legend>
+                <table class="detail-table">
+                    <tr>
+                        <th style="width: 120px;">Parametr</th>
+                        <th>Popis / Právní výklad</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Max. Výkon</strong></td>
+                        <td>Všeobecný limit pro třídu N je <strong>10 W (PEP)</strong>.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-p">P (Přednostní)</span></td>
+                        <td><strong>Primární služba.</strong> Radioamatéři mají plná práva na kmitočtu. Ostatní služby je nesmí rušit.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-s">S (Podružné)</span></td>
+                        <td><strong>Sekundární služba.</strong> Vysílání nesmí rušit primární službu a nelze nárokovat ochranu před rušením od primární služby. Může nárokovat ochranu před jinou sekundární službou.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-nib">NIB</span></td>
+                        <td><strong>Neinterferenční báze.</strong> Vysílání nesmí způsobit rušení ostatním službám a nemá nárok na žádnou ochranu před rušením.</td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; Lukáš Horák 2026 - kód upraven algoritmy strojového učení</p>
+    </footer>
+
+    <script>
+        // Databáze všech oficiálních pásem Třídy N dle ČTÚ Vyhlášky 156/2005 Sb. (Příloha 1, Tabulka 2)
+        const bandsData = [
+            {
+                id: "160m",
+                name: "160 m (1.8 MHz)",
+                category: "kv",
+                range: "1 830 kHz – 2 000 kHz",
+                status: "P (1830-1850 kHz) / NIB (1850-2000 kHz)",
+                statusBadge: "P / NIB",
+                badgeClass: "badge-nib",
+                power: "10 W PEP (v úseku NIB s ohledem na primární služby)",
+                iaru: [
+                    { range: "1 830 – 1 838 kHz", mode: "CW", desc: "Telegrafie (CW), max. šířka 200 Hz" },
+                    { range: "1 838 – 1 840 kHz", mode: "DIGI", desc: "Digitální módy, FT8 (1836 kHz), FT4" },
+                    { range: "1 840 – 1 850 kHz", mode: "SSB / Fonie", desc: "Fonický provoz LSB (Přednostní úsek)" },
+                    { range: "1 850 – 2 000 kHz", mode: "CW / SSB", desc: "Provoz NIB – neinterferenční báze" }
+                ],
+                note: "Topband. Pásmo je citlivé na noční rušení. V úseku nad 1850 kHz je nutné dbát zvýšené opatrnosti kvůli statusu NIB."
+            },
+            {
+                id: "80m",
+                name: "80 m (3.5 MHz)",
+                category: "kv",
+                range: "3 550 kHz – 3 700 kHz",
+                status: "Přednostní (P)",
+                statusBadge: "P",
+                badgeClass: "badge-p",
+                power: "10 W PEP",
+                iaru: [
+                    { range: "3 550 – 3 570 kHz", mode: "CW", desc: "Telegrafní úsek (QRP volací kmitočet 3560 kHz)" },
+                    { range: "3 570 – 3 580 kHz", mode: "DIGI", desc: "Digitální módy (FT8 na 3 573 kHz, FT4 na 3 575 kHz)" },
+                    { range: "3 580 – 3 600 kHz", mode: "DIGI / CW", desc: "RTTY, PSK a ostatní úzkopásmové módy" },
+                    { range: "3 600 – 3 700 kHz", mode: "SSB / LSB", desc: "Hlasový provoz (LSB), lokální i evropská spojení" }
+                ],
+                note: "Pro Třídu N je pásmo zkráceno na úsek 3550–3700 kHz. Velmi populární pro večerní a ranní spojení po ČR a Evropě."
+            },
+            {
+                id: "15m",
+                name: "15 m (21 MHz)",
+                category: "kv",
+                range: "21,050 MHz – 21,200 MHz",
+                status: "Přednostní (P)",
+                statusBadge: "P",
+                badgeClass: "badge-p",
+                power: "10 W PEP",
+                iaru: [
+                    { range: "21,050 – 21,070 MHz", mode: "CW", desc: "Morse telegrafie" },
+                    { range: "21,070 – 21,110 MHz", mode: "DIGI", desc: "FT8 (21.074 MHz), FT4 (21.140 MHz mimo N rozsah), RTTY" },
+                    { range: "21,120 – 21,200 MHz", mode: "SSB / USB", desc: "Hlasový provoz USB (DX dálková spojení)" }
+                ],
+                note: "DX pásmo závislé na sluneční aktivitě. Při dobrých podmínkách umožňuje dálková spojení s nízkým výkonem."
+            },
+            {
+                id: "10m",
+                name: "10 m (28 MHz)",
+                category: "kv",
+                range: "28,050 MHz – 28,400 MHz",
+                status: "Přednostní (P)",
+                statusBadge: "P",
+                badgeClass: "badge-p",
+                power: "10 W PEP",
+                iaru: [
+                    { range: "28,050 – 28,070 MHz", mode: "CW", desc: "Telegrafie" },
+                    { range: "28,070 – 28,120 MHz", mode: "DIGI", desc: "FT8 (28.074 MHz), FT4 (28.180 MHz mimo N rozsah)" },
+                    { range: "28,190 – 28,225 MHz", mode: "Majáky", desc: "Šíření signálu / Majákový úsek" },
+                    { range: "28,300 – 28,400 MHz", mode: "SSB / USB", desc: "Hlasová spojení USB" }
+                ],
+                note: "Rozsah pro Třídu N je vymezen na 28,050–28,400 MHz (mimo FM a převaděčovou část 29 MHz)."
+            },
+            {
+                id: "2m",
+                name: "2 m (144 MHz)",
+                category: "vkv",
+                range: "144,000 MHz – 146,000 MHz",
+                status: "Přednostní (P)",
+                statusBadge: "P",
+                badgeClass: "badge-p",
+                power: "10 W PEP",
+                iaru: [
+                    { range: "144,000 – 144,150 MHz", mode: "CW / EME", desc: "Telegrafie, odraz od Měsíce, Měřicí majáky" },
+                    { range: "144,150 – 144,400 MHz", mode: "SSB / DIGI", desc: "SSB úsek (144.200 USB), FT8 (144.174 MHz)" },
+                    { range: "144,500 – 144,794 MHz", mode: "FM / Převaděče", desc: "Výstupy VKV převaděčů a digitální nódy" },
+                    { range: "145,000 – 145,575 MHz", mode: "FM Simplex", desc: "FM Simplexní kanály (Volací kmitočet 145.500 MHz)" },
+                    { range: "145,600 – 145,987 MHz", mode: "Převaděče / Satelity", desc: "Vstupy/výstupy FM převaděčů, amatérské družice" }
+                ],
+                note: "Základní VKV pásmo. Třída N má přístup k celému rozsahu 144–146 MHz včetně FM převaděčů."
+            },
+            {
+                id: "70cm",
+                name: "70 cm (430 MHz)",
+                category: "vkv",
+                range: "430,000 MHz – 440,000 MHz",
+                status: "Podružná (S)",
+                statusBadge: "S",
+                badgeClass: "badge-s",
+                power: "10 W PEP",
+                iaru: [
+                    { range: "432,000 – 432,100 MHz", mode: "CW", desc: "Telegrafie" },
+                    { range: "432,100 – 432,400 MHz", mode: "SSB / DIGI", desc: "SSB (432.200 MHz), FT8 (432.174 MHz)" },
+                    { range: "433,000 – 433,575 MHz", mode: "FM Simplex", desc: "FM Simplex (Volací kmitočet 433.500 MHz)" },
+                    { range: "438,000 – 439,500 MHz", mode: "Převaděče", desc: "UHF převaděče (Analog, DMR, C4FM, D-STAR)" }
+                ],
+                note: "Sekundární status (S) z důvodu sdílení s radiolokací. Velmi populární pro ruční radiostanice a převaděče."
+            },
+            {
+                id: "23cm",
+                name: "23 cm (1.2 GHz)",
+                category: "mikro",
+                range: "1 240 MHz – 1 300 MHz",
+                status: "Podružná (S)",
+                statusBadge: "S",
+                badgeClass: "badge-s",
+                power: "10 W PEP (omezení e.i.r.p. dle konkrétních úseků ČTÚ)",
+                iaru: [
+                    { range: "1 240 – 1 260 MHz", mode: "ATV / Digital", desc: "Amatérská televize, širokopásmová data" },
+                    { range: "1 296,000 – 1 296,400 MHz", mode: "CW / SSB", desc: "Úzkopásmové módy, CW/SSB (1296.200 MHz)" },
+                    { range: "1 297,000 – 1 298,000 MHz", mode: "FM / Převaděče", desc: "FM simplex a převaděče 1.2 GHz" }
+                ],
+                note: "První mikrovlnné pásmo. Omezení výkonu v některých pod-úsecích kvůli ochraně systému Galileo (GNSS)."
+            },
+            {
+                id: "13cm",
+                name: "13 cm (2.3 GHz)",
+                category: "mikro",
+                range: "2 300 MHz – 2 450 MHz",
+                status: "Podružná (S)",
+                statusBadge: "S",
+                badgeClass: "badge-s",
+                power: "10 W PEP",
+                iaru: [
+                    { range: "2 320,000 – 2 320,200 MHz", mode: "CW / SSB", desc: "Úzkopásmový provoz" },
+                    { range: "2 400 – 2 450 MHz", mode: "Satellite / Wi-Fi", desc: "Družicová služba QO-100 (SATP), průmyslové ISM pásmo" }
+                ],
+                note: "Sdíleno s bezdrátovými sítěmi (Wi-Fi 2.4 GHz) a mikrovlnnými troubami."
+            },
+            {
+                id: "9cm",
+                name: "9 cm (3.4 GHz)",
+                category: "mikro",
+                range: "3 400 MHz – 3 410 MHz",
+                status: "Neinterferenční báze (NIB)",
+                statusBadge: "NIB",
+                badgeClass: "badge-nib",
+                power: "10 W PEP",
+                iaru: [
+                    { range: "3 400,000 – 3 402,000 MHz", mode: "CW / SSB", desc: "Úzkopásmové pokusy a spojení" }
+                ],
+                note: "Úzký úsek na neinterferenční bázi. Zákaz rušení komerčních 5G/WiMAX sítí."
+            },
+            {
+                id: "6cm",
+                name: "6 cm (5.7 GHz)",
+                category: "mikro",
+                range: "5 650 MHz – 5 850 MHz",
+                status: "Podružná (S)",
+                statusBadge: "S",
+                badgeClass: "badge-s",
+                power: "10 W PEP",
+                iaru: [
+                    { range: "5 760,000 – 5 760,200 MHz", mode: "CW / SSB", desc: "Centrum úzkopásmové aktivity" }
+                ],
+                note: "Mikrovlnné pásmo využívané pro závodní provoz a směrové spoje."
+            },
+            {
+                id: "3cm",
+                name: "3 cm (10 GHz)",
+                category: "mikro",
+                range: "10,00 GHz – 10,50 GHz",
+                status: "Podružná (S)",
+                statusBadge: "S",
+                badgeClass: "badge-s",
+                power: "10 W PEP",
+                iaru: [
+                    { range: "10,368 GHz", mode: "CW / SSB", desc: "Hlavní volací a závodní kmitočet pro 10 GHz" },
+                    { range: "10,450 – 10,500 GHz", mode: "Amateur Satellite", desc: "Družicový provoz" }
+                ],
+                note: "Nejoblíbenější mikrovlnné pásmo pro VKV závodění z horských kót."
+            },
+            {
+                id: "1.2cm",
+                name: "1.2 cm (24 GHz)",
+                category: "mikro",
+                range: "24,00 GHz – 24,25 GHz",
+                status: "P (24.00-24.05 GHz) / S (24.05-24.25 GHz)",
+                statusBadge: "P / S",
+                badgeClass: "badge-p",
+                power: "10 W PEP",
+                iaru: [
+                    { range: "24,048 GHz", mode: "CW / SSB", desc: "Úzkopásmové centrum aktivity" }
+                ],
+                note: "Pásmo VKV/Mikrovlnných specialistů."
+            },
+            {
+                id: "mm-bands",
+                name: "Milimetrová pásma (47 GHz – 250 GHz)",
+                category: "mikro",
+                range: "47 GHz až 250 GHz (různé úseky)",
+                status: "Přednostní (P) i Podružná (S) dle úseku",
+                statusBadge: "P / S",
+                badgeClass: "badge-p",
+                power: "10 W PEP",
+                iaru: [
+                    { range: "47,00 – 47,20 GHz", mode: "Přednostní (P)", desc: "Milimetrové vlny" },
+                    { range: "75,50 – 76,00 GHz", mode: "Přednostní (P)", desc: "Pásmo 76 GHz" },
+                    { range: "76,00 – 77,50 GHz", mode: "Podružné (S)", desc: "Sekundární úsek" },
+                    { range: "77,50 – 78,00 GHz", mode: "Přednostní (P)", desc: "Primární úsek" },
+                    { range: "78,00 – 81,00 GHz", mode: "Podružné (S)", desc: "Sekundární úsek" },
+                    { range: "122,25 – 123,00 GHz", mode: "NIB / S", desc: "Extrémní mikrovlny" },
+                    { range: "134,00 – 136,00 GHz", mode: "Přednostní (P)", desc: "Primární rozsah" },
+                    { range: "136,00 – 141,00 GHz", mode: "Podružné (S)", desc: "Sekundární rozsah" },
+                    { range: "241,00 – 248,00 GHz", mode: "Podružné (S)", desc: "Submilimetrové spektrum" },
+                    { range: "248,00 – 250,00 GHz", mode: "Přednostní (P)", desc: "Nejvyšší přidělené pásmo ČTÚ" }
+                ],
+                note: "Aktivita v těchto pásmech probíhá převážně formou výzkumu a konstrukce speciálních vlnovodných zařízení."
+            }
+        ];
+
+        // Funkce pro aktualizaci seznamu pásem
+        function updateList() {
+            const searchValue = document.getElementById('searchInput').value.toLowerCase();
+            const categoryValue = document.getElementById('categorySelect').value;
+            const listEl = document.getElementById('bandList');
+
+            listEl.innerHTML = '';
+
+            const filtered = bandsData.filter(band => {
+                const matchCategory = (categoryValue === 'all') || (band.category === categoryValue);
+                const matchSearch = band.name.toLowerCase().includes(searchValue) || 
+                                    band.range.toLowerCase().includes(searchValue);
+                return matchCategory && matchSearch;
+            });
+
+            if (filtered.length === 0) {
+                listEl.innerHTML = '<li style="padding:10px; color:#6c757d; font-size:13px;">Žádné pásmo neodpovídá filtru.</li>';
+                return;
+            }
+
+            filtered.forEach(band => {
+                const li = document.createElement('li');
+                li.className = 'band-item';
+                li.id = 'item-' + band.id;
+                li.onclick = () => selectBand(band.id);
+
+                li.innerHTML = `
+                    <span>${band.name}</span>
+                    <span class="badge ${band.badgeClass}">${band.statusBadge}</span>
+                `;
+
+                listEl.appendChild(li);
+            });
+        }
+
+        // Funkce pro zobrazení detailu pásma
+        function selectBand(id) {
+            document.querySelectorAll('.band-item').forEach(el => el.classList.remove('active'));
+            
+            const selectedItem = document.getElementById('item-' + id);
+            if (selectedItem) selectedItem.classList.add('active');
+
+            const band = bandsData.find(b => b.id === id);
+            if (!band) return;
+
+            const detailEl = document.getElementById('bandDetail');
+
+            let rowsHTML = '';
+            band.iaru.forEach(item => {
+                rowsHTML += `
+                    <tr>
+                        <td class="mono"><strong>${item.range}</strong></td>
+                        <td><span class="badge badge-s">${item.mode}</span></td>
+                        <td>${item.desc}</td>
+                    </tr>
+                `;
+            });
+
+            detailEl.innerHTML = `
+                <h2 style="margin-top:0; color:#0b3d91; font-size:18px;">${band.name}</h2>
+                <table class="detail-table">
+                    <tr>
+                        <th style="width:160px;">Oficiální rozsah (Od - Do)</th>
+                        <td class="mono"><strong>${band.range}</strong></td>
+                    </tr>
+                    <tr>
+                        <th>Právní status ČTÚ</th>
+                        <td><strong>${band.status}</strong></td>
+                    </tr>
+                    <tr>
+                        <th>Max. výkon (PEP)</th>
+                        <td>${band.power}</td>
+                    </tr>
+                </table>
+
+                <h3 style="font-size:14px; margin-top:15px; margin-bottom:5px;">Rozdělení pásma a druhy provozu (IARU Region 1 Plan)</h3>
+                <table class="detail-table">
+                    <thead>
+                        <tr>
+                            <th>Kmitočtový úsek</th>
+                            <th>Mód</th>
+                            <th>Popis a využití</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${rowsHTML}
+                    </tbody>
+                </table>
+
+                <div class="note-box">
+                    <strong>Poznámka k provozu:</strong> ${band.note}
+                </div>
+            `;
+        }
+
+        // Inicializace při načtení stránky
+        window.onload = function() {
+            updateList();
+            selectBand('80m');
+        };
+    </script>
+
+</body>
+</html>
