@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Horák.net - Článek</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="anketa.js"></script>
+</head>
+<body>
+
+<div class="hlavni-layout">
+
+    <!-- SEM SE AUTOMATICKY VLOŽÍ HORNÍ ČÁST Z MENU.HTML -->
+    <div id="slot-horni-cast"></div>
+
+    <!-- HLAVNÍ MŘÍŽKA -->
+    <div class="obsahova-mrizka">
+
+        <!-- SEM SE AUTOMATICKY VLOŽÍ LEVÝ PANEL Z MENU.HTML -->
+        <div class="levy-panel" id="slot-levy-panel">
+            Načítám menu...
+        </div>
+
+        <!-- STŘEDNÍ OBSAH (Samotný článek) -->
+        <div class="stredni-obsah">
+            
+            <div class="clanek-text">
+                <p class="super-text">
+                    Státy kde je nezákoné jakékoli homosexuální chování
+                </p>
+                <p class="cerny-text">
+                    <span class="velky-text cerveny-text">Je celkem 61 států kde je nezákoné jakékoli homosexuální chování</span> (z celkových 193 členských států OSN – v těchto zemích hrozí za dobrovolný stejnopohlavní styk v soukromí vězení, bičování a v až 12 státech dokonce trest smrti).
+                </p>
+
+                <center>
+                    <p class="velky-text">
+                        Výpis států
+                    </p>
+                </center>
+                <p class="cerny-text">
+                    Afghánistán, Alžírsko, Bangladéš, Barma (Myanmar), Brunej, Burundi, Čad, Demokratická republika Kongo (v praxi postihováno pod jinými paragrafy), Džibutsko (de facto kriminalizace), Egypt (postihováno přes zákony o „nemravnosti“), Eritrea, Eswatini (Svazijsko), Etiopie, Gambie, Ghana, Grenada, Guinea, Guyana, Irák, Írán, Jamajka, Jemen, Jižní Súdán, Kamerun, Katar, Keňa, Kiribati, Komory, Kuvajt, Libanon, Libérie, Libye, Malawi, Malajsie, Maledivy, Maroko, Mauritánie, Nigérie, Omán, Pákistán, Papua Nová Guinea, Rusko (kriminalizace tzv. „mezinárodního hnutí LGBT“ jako extremismu), Samoa, Saúdská Arábie, Senegal, Sierra Leone, Somálsko, Spojené arabské emiráty, Srí Lanka, Súdán, Svatá Lucie, Svatý Vincenc a Grenadiny, Sýrie, Šalamounovy ostrovy, Tanzanie, Togo, Tonga, Tunisko, Turkmenistán, Tuvalu, Uganda, Uzbekistán, Zambie, Zimbabwe.
+                </p>
+
+                <center>
+                    <p class="velky-text">
+                        Mapa z Wikipedie
+                    </p>
+                </center>
+                <center>
+                    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/World_laws_pertaining_to_homosexual_relationships_and_expression.svg/960px-World_laws_pertaining_to_homosexual_relationships_and_expression.svg.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail&_=20261111230116" alt="Mapa zákonů o homosexualitě ve světě (Wikimedia Commons)" style="max-width: 100%; height: auto; border: 1px solid #000;">
+                    <p class="modry-text">
+                        Zdroj mapy: <a href="https://commons.wikimedia.org/wiki/File:World_laws_pertaining_to_homosexual_relationships_and_expression.svg" target="_blank">Wikimedia Commons – World laws pertaining to homosexual relationships and expression</a> (Červené a oranžové odstíny = kriminalizace stejnopohlavního styku, nejtmavší odstíny = trest smrti).
+                    </p>
+                </center>
+
+                <center>
+                    <p class="velky-text cerveny-text">
+                        NÁZOR OSN A ŽE TO PORUŠUJE LIDSKÁ PRÁVA
+                    </p>
+                </center>
+                <p class="cerny-text">
+                    Organizace spojených národů (OSN) a její klíčové orgány – zejména <span class="modry-text">Úřad vysokého komisaře OSN pro lidská práva (OHCHR)</span> a <span class="modry-text">Výbor OSN pro lidská práva</span> – dlouhodobě zastávají naprosto jednoznačný postoj: <span class="cerveny-text">kriminalizace dobrovolných stejnopohlavních vztahů mezi dospělými lidmi je hrubým porušením základních lidských práv a mezinárodního práva.</span>
+                </p>
+                <p class="cerny-text">
+                    Už od přelomového rozhodnutí v případu <span class="modry-text">Toonen vs. Austrálie (1994)</span> Výbor OSN pro lidská práva opakovaně potvrzuje, že zákony trestající homosexualitu přímo porušují právo na soukromí a princip rovnosti před zákonem zakotvené ve <span class="zeleny-text">Všeobecné deklaraci lidských práv</span> a v <span class="zeleny-text">Mezinárodním paktu o občanských a politických právech (ICCPR)</span>. OSN pravidelně vyzývá všechny členské státy k okamžité dekriminalizaci stejnopohlavního chování a ke zrušení trestu smrti za tyto skutky. <span class="cerveny-text">Podle OSN tyto zákony nejen zasahují do nejintimnější svobody jednotlivce, ale také legitimují státní šikanu, vydírání, mučení a násilí vůči vlastním občanům.</span>
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- JAVASCRIPT PRO NAČTENÍ MENU.HTML NA OBĚ MÍSTA -->
+<script>
+    fetch('menu.html')
+    .then(response => response.text())
+    .then(htmlString => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlString, 'text/html');
+
+        // Horní část
+        const horniTemplate = doc.getElementById('obsah-horni-cast');
+        if (horniTemplate) {
+            document.getElementById('slot-horni-cast').innerHTML = horniTemplate.innerHTML;
+
+            const dnes = new Date();
+            const den = String(dnes.getDate()).padStart(2, '0');
+            const mesic = String(dnes.getMonth() + 1).padStart(2, '0');
+            const rok = dnes.getFullYear();
+
+            const elementDatum = document.getElementById('aktualni-datum');
+            if (elementDatum) {
+                elementDatum.textContent = `${den}. ${mesic}. ${rok}`;
+            }
+        }
+
+        // Levý panel (tady je anketa)
+        const levyTemplate = doc.getElementById('obsah-levy-panel');
+        if (levyTemplate) {
+            document.getElementById('slot-levy-panel').innerHTML = levyTemplate.innerHTML;
+            if (window.initAnketa) window.initAnketa();
+        }
+    })
+    .catch(chyba => {
+        console.error('Chyba při načítání menu:', chyba);
+    });
+</script>
+
+</body>
+</html>

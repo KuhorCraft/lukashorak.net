@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>VAROVÁNÍ</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="anketa.js"></script>
+</head>
+<body>
+
+<div class="hlavni-layout">
+
+    <!-- SEM SE AUTOMATICKY VLOŽÍ HORNÍ ČÁST Z MENU.HTML -->
+    <div id="slot-horni-cast"></div>
+
+    <!-- HLAVNÍ MŘÍŽKA -->
+    <div class="obsahova-mrizka">
+
+        <!-- SEM SE AUTOMATICKY VLOŽÍ LEVÝ PANEL Z MENU.HTML -->
+        <div class="levy-panel" id="slot-levy-panel">
+            Načítám menu...
+        </div>
+
+        <!-- STŘEDNÍ OBSAH (Samotný článek) -->
+        <div class="stredni-obsah">
+            
+            <div class="clanek-text">
+                <center>
+                    <p class="super-text cerveny-text">
+                        VAROVÁNÍ
+                    </p>
+                    <p class="cerny-text">
+                        Toto je velmi nedůvěryhodný web, neučte se z něho nic, co se netýká vědy a techniky, nestavte si na těchto textech vaše politické názory.
+                    </p>
+                </center>
+                
+                <p class="cerny-text">
+                    <span class="zeleny-text">Proč vlastně vzniklo toto varování a co tím autor sleduje?</span> Na internetu dnes můžete narazit na obrovské množství platforem, které se tváří jako objektivní zpravodajství, nezávislé think-tanky nebo seriózní vědecké publikace, přitom ale často skrývají subjektivní názory, polopravdy nebo vyložené bludy. <span class="cerveny-text">Tento web je soukromým prostorem pro technické experimenty, programování, bastlení s elektronikou a občasné sdílení naprosto radikálních a nefiltrovaných postojů</span> k fungování státu, byrokracie a společnosti. Pokud byste brali každou myšlenku napsanou v těchto článcích jako bernou minci nebo univerzální morální kompas, dostali byste se velmi rychle do slepé uličky.
+                </p>
+
+                <center>
+                    <p class="velky-text">
+                        Věda a technika jako jediná pevná půda pod nohama
+                    </p>
+                </center>
+                <p class="cerny-text">
+                    Zatímco lidské názory na politiku, ekonomiku nebo uspořádání společnosti se neustále mění a každý si je přetváří podle vlastní nátury, <span class="modry-text">fyzikální zákony, matematika a logika se obejdou bez tiskových mluvčích a vládních nařízení.</span> Ohmův zákon bude platit pořád stejně, ať už je u moci kdokoliv, kód napsaný v C nebo v C++ se zkompiluje podle naprosto přesných pravidel a binární strom nebo zapojení s operačním zesilovačem se nebudou řídit ideologií nějaké strany. <span class="zeleny-text">Právě proto má smysl čerpat z tohoto webu technické postupy, návody na mikrokontroléry, konfiguraci Linuxu nebo síťové protokoly</span> – ty věci jsou ověřitelné, fungují v praxi a dají se změřit na osciloskopu.
+                </p>
+
+                <center>
+                    <p class="velky-text cerveny-text">
+                        NEBEZPEČÍ SLEPÉHO PŘEJÍMÁNÍ NÁZORŮ
+                    </p>
+                </center>
+                <p class="cerny-text">
+                    Jedním z největších nebezpečí moderní doby je fakt, že lidé přestanou používat vlastní hlavu a přenechají kritické myšlení algoritmům nebo autoritám – ať už těm státním, korporátním, anebo naopak nejrůznějším radikálním blogerům. <span class="cerveny-text">Pokud si na základě ironických poznámek, nadsázky a ostrých výpadů na tomto webu začnete budovat vlastní politický názor, děláte obrovskou chybu.</span> Svět je složitý systém, který nelze popsat několika černobílými soudy o švábech, parazitní byrokracii nebo nefunkčních systémech. Vždycky si ověřujte informace z více nezávislých zdrojů, čtěte originální dokumentaci, zkoumejte zdrojové kódy a hlavně – <span class="zeleny-text">přemýšlejte nad tím, jak věci reálně fungují pod kapotou</span>, namísto abyste slepě věřili cizím heslům.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- JAVASCRIPT PRO NAČTENÍ MENU.HTML NA OBĚ MÍSTA -->
+<script>
+    fetch('menu.html')
+    .then(response => response.text())
+    .then(htmlString => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlString, 'text/html');
+
+        // Horní část
+        const horniTemplate = doc.getElementById('obsah-horni-cast');
+        if (horniTemplate) {
+            document.getElementById('slot-horni-cast').innerHTML = horniTemplate.innerHTML;
+
+            const dnes = new Date();
+            const den = String(dnes.getDate()).padStart(2, '0');
+            const mesic = String(dnes.getMonth() + 1).padStart(2, '0');
+            const rok = dnes.getFullYear();
+
+            const elementDatum = document.getElementById('aktualni-datum');
+            if (elementDatum) {
+                elementDatum.textContent = `${den}. ${mesic}. ${rok}`;
+            }
+        }
+
+        // Levý panel (tady je anketa)
+        const levyTemplate = doc.getElementById('obsah-levy-panel');
+        if (levyTemplate) {
+            document.getElementById('slot-levy-panel').innerHTML = levyTemplate.innerHTML;
+            if (window.initAnketa) window.initAnketa();
+        }
+    })
+    .catch(chyba => {
+        console.error('Chyba při načítání menu:', chyba);
+    });
+</script>
+
+</body>
+</html>

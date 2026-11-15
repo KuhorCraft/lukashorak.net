@@ -1,0 +1,52 @@
+.cerny-text = normální černý text
+
+.cerveny-text = červený tučný text (výrazný, varování)
+
+.zeleny-text = zelený tučný text (doplňky, poznámky)
+
+.modry-text = modrý tučný text (odkazy, technické detaily)
+
+.velky-text = velký tučný nápis přes celý řádek (velká písmena)
+
+.super-text = masívní text
+------------
+Jak použít:
+------------
+<p class="cerny-text">
+    Tohle je obyčejný černý text v odstavci.
+</p>
+
+<span class="velky-text cerveny-text">
+    TOTO JE VELKÉ ČERVENÉ UPOZORNĚNÍ
+</span>
+
+<p class="zeleny-text">
+    Tohle je zelený text.
+</p>
+
+<p class="super-text">
+    Tohle je masivní text.
+</p>
+
+<p class="modry-text">
+    Tohle je modrý text.
+</p>
+------------
+
+<br> = Zlom řádek (ukončí řádek a skočí hned na další, bez prázdné mezery).
+
+    Použití: První řádek<br>Druhý řádek
+
+<hr> = Horizontální čára (nakreslí přes celou šířku textu čáru jako oddělovač).
+
+    Použití: <hr>
+
+<b> nebo <strong> = Tučný text (pokud nechceš celou třídu, jen ztučnit jedno slovo).
+
+    Použití: Tohle je <b>tučné</b> slovo.
+
+<i> = Kurzíva (nakloněný text).
+
+    Použití: Tohle je <i>kurzíva</i>.
+
+<a href="odkaz.html">text odstavce</a> = Klasický odkaz na jinou stránku.

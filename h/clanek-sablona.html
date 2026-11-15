@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Horák.net - Článek</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="anketa.js"></script>
+</head>
+<body>
+
+<div class="hlavni-layout">
+
+    <!-- SEM SE AUTOMATICKY VLOŽÍ HORNÍ ČÁST Z MENU.HTML -->
+    <div id="slot-horni-cast"></div>
+
+    <!-- HLAVNÍ MŘÍŽKA -->
+    <div class="obsahova-mrizka">
+
+        <!-- SEM SE AUTOMATICKY VLOŽÍ LEVÝ PANEL Z MENU.HTML -->
+        <div class="levy-panel" id="slot-levy-panel">
+            Načítám menu...
+        </div>
+
+        <!-- STŘEDNÍ OBSAH (Samotný článek) -->
+        <div class="stredni-obsah">
+            
+            <div class="clanek-text">
+                <p class="cerny-text">
+                    Tento text je ve výchozí <b>černé barvě</b>. Jak horní tmavě modrý pruh s hlavičkou, tak levé menu jsou nyní kompletně oddělené v souboru <code>menu.html</code> a JavaScript je automaticky posadil na správná místa, aniž by se cokoliv rozbilo.
+                </p>
+
+                <span class="velky-text cerveny-text">
+                    TOTO JE VELKÝ ČERVENÝ TEXT PRO DŮLEŽITÉ BODY A VAROVÁNÍ!
+                </span>
+
+                <p class="zeleny-text">
+                    Tento odstavec nebo důležitá poznámka je kompletně zapsaná v <b>zelené barvě</b>.
+                </p>
+
+                <p class="modry-text">
+                    Zde využíváme <b>modrou barvu</b> pro odkazy nebo specifické sekce.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- JAVASCRIPT PRO NAČTENÍ MENU.HTML NA OBĚ MÍSTA -->
+<script>
+    fetch('menu.html')
+    .then(response => response.text())
+    .then(htmlString => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlString, 'text/html');
+
+        // Horní část
+        const horniTemplate = doc.getElementById('obsah-horni-cast');
+        if (horniTemplate) {
+            document.getElementById('slot-horni-cast').innerHTML = horniTemplate.innerHTML;
+
+            const dnes = new Date();
+            const den = String(dnes.getDate()).padStart(2, '0');
+            const mesic = String(dnes.getMonth() + 1).padStart(2, '0');
+            const rok = dnes.getFullYear();
+
+            const elementDatum = document.getElementById('aktualni-datum');
+            if (elementDatum) {
+                elementDatum.textContent = `${den}. ${mesic}. ${rok}`;
+            }
+        }
+
+        // Levý panel (tady je anketa)
+        const levyTemplate = doc.getElementById('obsah-levy-panel');
+        if (levyTemplate) {
+            document.getElementById('slot-levy-panel').innerHTML = levyTemplate.innerHTML;
+            if (window.initAnketa) window.initAnketa();
+        }
+    })
+        .catch(chyba => {
+            console.error('Chyba při načítání menu:', chyba);
+        });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Návštěvnická kniha</title>
+    <!-- Cesta k styles.css (pokud je složka o úroveň níž, uprav cestu např. na ../styles.css) -->
+    <link rel="stylesheet" href="styles1.css">
+</head>
+<body>
+
+<div id="container">
+
+    <header>
+        <h1>Návštěvnická kniha</h1>
+        <div class="subtitle">Zde mohete zanechati vzakt pro mně a ostatní návštěvníky mého webu.</div>
+    </header>
+
+    <div class="content">
+        <a href="index.html" class="back-link">&laquo; Zpět na hlavní stránku</a>
+
+        <!-- Úvodní bio box -->
+        <p class="intro-bio">
+            Návštěvnická kniha je prostor pro vás, můžete zde sdílet vaše názory, nápady i náladu. Prosíme vás zde <b>nespamovat</b>, že vám systém dovolí sem naházet 100 vzkazů za minutu neznamená že to dělat musíte. Nechci zbytečně dělat nový JS kde by byly i antiblbec opatření
+        </p>
+        <br>
+        <div>
+        <form id="f">
+            <input id="n" placeholder="Jméno..." required>
+            <input id="t" placeholder="Vzkaz..." required>
+            <button>Poslat</button>
+        </form>
+        <div id="seznam">Načítám vzkazy...</div>
+        <script src="kniha.js"></script>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 Lukáš Horák
+    </footer>
+
+</div>
+
+</body>
+</html>

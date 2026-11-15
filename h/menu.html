@@ -1,0 +1,82 @@
+<!-- 1. HORNÍ ČÁST (hlavička, pruh, datum) -->
+<template id="obsah-horni-cast">
+    <!-- Horní tmavě modrý pruh -->
+    <div class="horni-pruh">
+        Úžasná část blahodárného webu Lukáše Horáka
+    </div>
+
+    <!-- Hlavička stránky s vaším logem horak.png -->
+    <div class="hlavicka">
+        <div class="hlavicka-logo">
+            <img src="media/horak.png" alt="Logo Horák">
+        </div>
+        <div class="pravy-box-foto">
+            <img src="media/lukas.png" alt="Lukáš">
+            <div>Lukáš Horák</div>
+        </div>
+    </div>
+
+    <!-- Podhlavička s datem a odkazy -->
+    <div class="podhlavicka">
+        <div>Dnes je: <span id="aktualni-datum">načítám...</span></div>
+        <div>
+            <a href="index.html">Zpět na domovskou stránku</a> | 
+            <a href="varovani.html">Důležité</a> | 
+            <a href="navstevnicka-kniha.html">Návštěvnická kniha</a>
+            <a href="odkazy.html">Odkazy</a>
+        </div>
+    </div>
+</template>
+
+
+<!-- 2. LEVÝ PANEL -->
+<template id="obsah-levy-panel">
+    <div class="box-menu">
+        <div class="box-nadpis">Úžasný web</div>
+        <div class="box-obsah">
+            <p>
+                Toto je neprofesionální web, jen místo kam mohu chrlit své šílené názory. Pokud s tím máte problém tak běžte zpět na <a href="../index.html">hlavní stránku</a>.
+            </p>
+        </div>
+    </div>
+
+    <!-- Navigační menu -->
+    <div class="box-menu">
+        <div class="box-nadpis">Navigace</div>
+        <div class="box-obsah">
+            <ul>
+                <li><a href="index.html">DOMOVSKÁ STRÁNKA</a></li>
+                <li><a href="kontakt.html">Kontakty</a></li>
+                <li><a href="proclinuxopensuse.html">Proč přejít na Linux, konkrétně openSUSE</a></li>
+                <li><a href="lidskapravaporosujicistaty.html">Státy kde bych nechtěl žít</a></li>
+                <li><a href="kupte-si-doménu.html">Proč si koupit vlastní doménu</a></li>
+                <li><a href="nejlepsisocialnisite.html">Nejlepší sociální sítě</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Statistika návštěvnosti – TOPlist -->
+<div class="box-menu">
+    <div class="box-nadpis">Návštěvnost</div>
+    <div class="box-obsah" style="text-align: center;">
+        <a href="https://www.toplist.cz" id="toplistcz1843797" title="TOPlist"><noscript><img src="https://toplist.cz/count.asp?id=1843797&logo=mc&njs=1" border="0"
+            alt="TOPlist" width="88" height="60"/></noscript><script language="JavaScript">
+            (function(d,e,s) {d.getElementById('toplistcz1843797').innerHTML='<img src="https://toplist.cz/count.asp?id=1843797&logo=mc&http='+
+            e(d.referrer)+'&t='+e(d.title)+'&l='+e(d.URL)+'&wi='+e(s.width)+'&he='+e(s.height)+'&cd='+
+            e(s.colorDepth)+'" width="88" height="60" border="0" alt="TOPlist" />';
+            }(document,encodeURIComponent,window.screen))
+            </script>
+        </a>
+    </div>
+</div>
+
+    <!-- Anketa -->
+    <!-- Anketa -->
+<div class="box-menu">
+    <div class="box-nadpis">Naše anketa</div>
+    <div class="box-obsah">
+        <p><b>Měl by stát legalizovat stejnopohlavní manželství?</b></p>
+        <div id="anketa-vysledky">Načítám...</div>
+    </div>
+</div>
+</template>

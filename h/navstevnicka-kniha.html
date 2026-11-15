@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Horák.net - Článek</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="anketa.js"></script>
+</head>
+<body>
+
+<div class="hlavni-layout">
+
+    <!-- SEM SE AUTOMATICKY VLOŽÍ HORNÍ ČÁST Z MENU.HTML -->
+    <div id="slot-horni-cast"></div>
+
+    <!-- HLAVNÍ MŘÍŽKA -->
+    <div class="obsahova-mrizka">
+
+        <!-- SEM SE AUTOMATICKY VLOŽÍ LEVÝ PANEL Z MENU.HTML -->
+        <div class="levy-panel" id="slot-levy-panel">
+            Načítám menu...
+        </div>
+
+        <!-- STŘEDNÍ OBSAH (Samotný článek) -->
+        <div class="stredni-obsah">
+            
+            <div class="clanek-text">
+                <p>Zde mohete zanechávat vzkazy :P</p>
+                <p>Prosíme vás zde <b>nespamovat</b>, že vám systém dovolí sem naházet 100 vzkazů za minutu neznamená že to dělat musíte. Nechci zbytečně dělat nový JS kde by byly i antiblbec opatření TwT</p>
+                <hr>
+            <form id="f">
+            <input id="n" placeholder="Jméno..." required>
+            <input id="t" placeholder="Vzkaz..." required>
+            <button>Poslat</button>
+            </form>
+
+            <div id="seznam">Načítám vzkazy...</div>
+            <script src="kniha-h.js"></script>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- JAVASCRIPT PRO NAČTENÍ MENU.HTML NA OBĚ MÍSTA -->
+<script>
+    fetch('menu.html')
+        .then(response => response.text())
+        .then(htmlString => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlString, 'text/html');
+
+            const horniTemplate = doc.getElementById('obsah-horni-cast');
+            if (horniTemplate) {
+                document.getElementById('slot-horni-cast').innerHTML = horniTemplate.innerHTML;
+
+                const dnes = new Date();
+                const den = String(dnes.getDate()).padStart(2, '0');
+                const mesic = String(dnes.getMonth() + 1).padStart(2, '0');
+                const rok = dnes.getFullYear();
+
+                const elementDatum = document.getElementById('aktualni-datum');
+                if (elementDatum) {
+                    elementDatum.textContent = `${den}. ${mesic}. ${rok}`;
+                }
+            }
+
+            const levyTemplate = doc.getElementById('obsah-levy-panel');
+            if (levyTemplate) {
+                document.getElementById('slot-levy-panel').innerHTML = levyTemplate.innerHTML;
+                if (window.initAnketa) window.initAnketa();
+            }
+        })
+        .catch(chyba => {
+            console.error('Chyba při načítání menu:', chyba);
+        });
+</script>
+
+</body>
+</html>

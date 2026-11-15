@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Horák.net - Článek</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="anketa.js"></script>
+</head>
+<body>
+
+<div class="hlavni-layout">
+
+    <!-- SEM SE AUTOMATICKY VLOŽÍ HORNÍ ČÁST Z MENU.HTML -->
+    <div id="slot-horni-cast"></div>
+
+    <!-- HLAVNÍ MŘÍŽKA -->
+    <div class="obsahova-mrizka">
+
+        <!-- SEM SE AUTOMATICKY VLOŽÍ LEVÝ PANEL Z MENU.HTML -->
+        <div class="levy-panel" id="slot-levy-panel">
+            Načítám menu...
+        </div>
+
+        <!-- STŘEDNÍ OBSAH (Samotný článek) -->
+        <div class="stredni-obsah">
+            
+            <div class="clanek-text">
+                <p class="super-text">
+                    Zajímavé odkazy
+                </p>
+                <ul>
+                    <li><a href="https://vzdelanylid.cz/">Vzdělaný lid České republiky</a></li>
+                    <li><a href="https://www.fsf.org/">Free software foundation</a></li>
+                    <li><a href="https://fsfe.org/">Free Software Foundation Europe</a></li>
+                    <li><a href="https://www.root.cz/texty/zaklady-linuxu/">Root.cz - jak na linux</a></li>
+                    <li><a href="https://get.opensuse.org/desktop/">Stažení openSUSE - Leap, Tumbleweed</a></li>
+                    <li><a href="https://maps.smoce.net/">Mapa převaděčů</a></li>
+                    <li><a href="https://fmpohar.nagano.cz/">FM pohár</a></li>
+                    <li><a href="https://ok2vbz.waypoint.cz/mc/">Moon contest</a></li>
+                    <li><a href="https://ok9dmr97.webnode.cz/">OK9DMR</a></li>
+                    <li><a href="https://ok1if.hamqth.com/">OK1IF</a></li>
+                    <li><a href="https://practicalantennas.com/designs/dipole/dipoletables/">Délka dipĺových antén</a></li>
+                    <li><a href="https://sites.google.com/gyarab.cz/jirkovadomena/">Jirkovo doména</a></li>
+                    <li><a href="https://tier.game-cave.net/htime/">Metinárodní komise času písmene h</a></li>
+                    <li><a href="https://tier.game-cave.net/potat/">potat</a></li>
+                    <li><a href="https://384.cz/">384</a></li>
+                    <li><a href="https://dejvice.cz/edison/">Web Pavla Hudečka, alias Edisona</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- JAVASCRIPT PRO NAČTENÍ MENU.HTML NA OBĚ MÍSTA -->
+<script>
+    fetch('menu.html')
+    .then(response => response.text())
+    .then(htmlString => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlString, 'text/html');
+
+        // Horní část
+        const horniTemplate = doc.getElementById('obsah-horni-cast');
+        if (horniTemplate) {
+            document.getElementById('slot-horni-cast').innerHTML = horniTemplate.innerHTML;
+
+            const dnes = new Date();
+            const den = String(dnes.getDate()).padStart(2, '0');
+            const mesic = String(dnes.getMonth() + 1).padStart(2, '0');
+            const rok = dnes.getFullYear();
+
+            const elementDatum = document.getElementById('aktualni-datum');
+            if (elementDatum) {
+                elementDatum.textContent = `${den}. ${mesic}. ${rok}`;
+            }
+        }
+
+        // Levý panel (tady je anketa)
+        const levyTemplate = doc.getElementById('obsah-levy-panel');
+        if (levyTemplate) {
+            document.getElementById('slot-levy-panel').innerHTML = levyTemplate.innerHTML;
+            if (window.initAnketa) window.initAnketa();
+        }
+    })
+    .catch(chyba => {
+        console.error('Chyba při načítání menu:', chyba);
+    });
+</script>
+
+</body>
+</html>
