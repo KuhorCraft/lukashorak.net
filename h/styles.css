@@ -154,14 +154,41 @@ body {
 
 .clanek-text {
     font-size: 13px;
-    line-height: 1.5;
+    line-height: 1.6;
     color: #000000;
 }
 
-.cerny-text { color: #000000; }
-.cerveny-text { color: #cc0000; font-weight: bold; }
-.zeleny-text { color: #006600; font-weight: bold; }
-.modry-text { color: #0000cc; font-weight: bold; }
+p {
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.cerny-text { 
+    color: #000000; 
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.cerveny-text { 
+    color: #cc0000; 
+    font-weight: bold; 
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.zeleny-text { 
+    color: #006600; 
+    font-weight: bold; 
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.modry-text { 
+    color: #0000cc; 
+    font-weight: bold; 
+    font-size: 13px;
+    line-height: 1.6;
+}
 
 .velky-text {
     font-size: 16px;
@@ -173,7 +200,7 @@ body {
 }
 
 .stredne-velky-text {
-    font-size: 18;
+    font-size: 18px;
     display: block;
     font-weight: bold;
     line-height: 1.3;
