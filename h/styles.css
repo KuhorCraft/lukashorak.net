@@ -138,20 +138,6 @@ body {
     box-sizing: border-box;
 }
 
-.clanek-nadpis {
-    font-weight: bold;
-    color: #cc0000;
-    font-size: 15px;
-    margin-bottom: 4px;
-    text-transform: uppercase;
-}
-
-.clanek-datum {
-    font-size: 10px;
-    color: #666666;
-    margin-bottom: 10px;
-}
-
 .clanek-text {
     font-size: 13px;
     line-height: 1.6;
